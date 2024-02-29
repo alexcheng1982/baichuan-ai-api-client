@@ -1,0 +1,151 @@
+openapi: "3.0.2"
+info:
+  title: Baichuan 2
+  version: "1.0"
+servers:
+  - url: https://api.baichuan-ai.com/v1
+components:
+  securitySchemes:
+    apiKey:
+      scheme: bearer
+      type: http
+  schemas:
+    ChatMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+            - "user"
+            - "assistant"
+        content:
+          type: string
+      required:
+        - "role"
+        - "content"
+    KnowledgeBaseRequest:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+        answer_mode:
+          type: string
+          enum:
+            - knowledge-base-only
+    ChatCompletionRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          enum:
+            - "Baichuan2-Turbo"
+            - "Baichuan2-Turbo-192k"
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+        stream:
+          type: boolean
+        temperature:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+        top_p:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+        top_k:
+          type: number
+          format: int32
+          minimum: 0
+          maximum: 20
+        with_search_enhance:
+          type: boolean
+        knowledge_base:
+          $ref: "#/components/schemas/KnowledgeBaseRequest"
+      required:
+        - "model"
+        - "messages"
+    ChatChoice:
+      type: object
+      properties:
+        finish_reason:
+          type: string
+          enum:
+            - "stop"
+            - "content_filter"
+        index:
+          type: number
+          format: int32
+        message:
+          $ref: "#/components/schemas/ChatMessage"
+        model:
+          type: string
+        object:
+          type: string
+        usage:
+          $ref: "#/components/schemas/ChatCompletionUsage"
+    ChatCompletionUsage:
+      type: object
+      properties:
+        completion_tokens:
+          type: number
+          format: int32
+        prompt_tokens:
+          type: number
+          format: int32
+        total_tokens:
+          type: number
+          format: int32
+    KnowledgeBaseCite:
+      type: object
+      properties:
+        title:
+          type: string
+        file_id:
+          type: string
+        content:
+          type: string
+    KnowledgeBaseResponse:
+      type: object
+      properties:
+        cites:
+          type: array
+          items:
+            $ref: "#/components/schemas/KnowledgeBaseCite"
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        created:
+          type: number
+          format: int32
+
+paths:
+  /chat/completions:
+    post:
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/ChatCompletionRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ChatCompletionResponse"
+        "401":
+          description: "Invalid Authentication"
+        "429":
+          description: "Rate limit reached for requests"
+        "500":
+          description: "Internal Server Error"
+security:
+  - apiKey: []
