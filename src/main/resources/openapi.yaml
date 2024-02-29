@@ -1,6 +1,6 @@
 openapi: "3.0.2"
 info:
-  title: Baichuan 2
+  title: Baichuan AI
   version: "1.0"
 servers:
   - url: https://api.baichuan-ai.com/v1
