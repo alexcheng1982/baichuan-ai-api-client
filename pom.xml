@@ -4,9 +4,32 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>cc.vividcode</groupId>
+  <groupId>io.github.alexcheng1982</groupId>
   <artifactId>baichuan-ai-api-client</artifactId>
   <version>0.0.2</version>
+  <packaging>jar</packaging>
+
+  <name>baichuan-ai-api-client</name>
+  <description>Baichuan AI API Client</description>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Fu Cheng</name>
+      <email>alexcheng1982@gmail.com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/alexcheng1982/baichuan-ai-api-client.git</connection>
+    <developerConnection>scm:git:ssh://github.com:alexcheng1982/baichuan-ai-api-client.git</developerConnection>
+    <url>http://github.com/alexcheng1982/baichuan-ai-api-client</url>
+  </scm>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
@@ -79,9 +102,9 @@
               <configOptions>
                 <sourceFolder>src/gen/java/main</sourceFolder>
               </configOptions>
-              <apiPackage>cc.vividcode.baichuanai.client.api</apiPackage>
-              <modelPackage>cc.vividcode.baichuanai.client.model</modelPackage>
-              <invokerPackage>cc.vividcode.baichuanai.client</invokerPackage>
+              <apiPackage>io.github.alexcheng1982.baichuanai.client.api</apiPackage>
+              <modelPackage>io.github.alexcheng1982.baichuanai.client.model</modelPackage>
+              <invokerPackage>io.github.alexcheng1982.baichuanai.client</invokerPackage>
             </configuration>
           </execution>
         </executions>
@@ -96,6 +119,49 @@
           <tokenAuth>true</tokenAuth>
           <autoPublish>true</autoPublish>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <failOnError>false</failOnError>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
