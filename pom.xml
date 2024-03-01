@@ -11,6 +11,7 @@
 
   <name>baichuan-ai-api-client</name>
   <description>Baichuan AI API Client</description>
+  <url>https://github.com/alexcheng1982/baichuan-ai-api-client</url>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
