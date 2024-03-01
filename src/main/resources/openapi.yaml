@@ -59,7 +59,7 @@ components:
           minimum: 0.0
           maximum: 1.0
         top_k:
-          type: number
+          type: integer
           format: int32
           minimum: 0
           maximum: 20
@@ -79,7 +79,7 @@ components:
             - "stop"
             - "content_filter"
         index:
-          type: number
+          type: integer
           format: int32
         message:
           $ref: "#/components/schemas/ChatMessage"
@@ -93,13 +93,13 @@ components:
       type: object
       properties:
         completion_tokens:
-          type: number
+          type: integer
           format: int32
         prompt_tokens:
-          type: number
+          type: integer
           format: int32
         total_tokens:
-          type: number
+          type: integer
           format: int32
     KnowledgeBaseCite:
       type: object
@@ -123,7 +123,7 @@ components:
         id:
           type: string
         created:
-          type: number
+          type: integer
           format: int32
 
 paths:
